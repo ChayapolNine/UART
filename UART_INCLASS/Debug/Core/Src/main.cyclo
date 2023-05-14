@@ -1,9 +1,9 @@
 main.c:79:5:main	22
-main.c:278:6:SystemClock_Config	3
-main.c:325:13:MX_USART2_UART_Init	2
-main.c:356:13:MX_DMA_Init	1
-main.c:377:13:MX_GPIO_Init	1
-main.c:414:6:HAL_GPIO_EXTI_Callback	7
-main.c:468:6:UARTInterruptConfig	1
-main.c:472:6:HAL_UART_RxCpltCallback	2
-main.c:489:6:Error_Handler	1
+main.c:280:6:SystemClock_Config	3
+main.c:327:13:MX_USART2_UART_Init	2
+main.c:358:13:MX_DMA_Init	1
+main.c:379:13:MX_GPIO_Init	1
+main.c:416:6:HAL_GPIO_EXTI_Callback	7
+main.c:470:6:UARTInterruptConfig	1
+main.c:474:6:HAL_UART_RxCpltCallback	2
+main.c:491:6:Error_Handler	1

@@ -136,20 +136,21 @@ int main(void)
 	  switch(state)
 	  {
 	  case 0: // Menu
-		  sprintf((char*)Text,"\r\n\n========== Welcome to Main Menu ==========\r\n\n"
+		  sprintf((char*)Text,"%s\r\n\n========== Welcome to Main Menu ==========\r\n\n"
 				  "**Please Select Menu**\r\n\n"
 				  " Press 0 for LED Control \r\n\n"
 				  " Press 1 for Button Status \r\n\n"
 				  "==========================================\r\n\n"
-				  " Enter Your in Input : ");
+				  " Enter Your in Input : ",RxBuffer);
 		  HAL_UART_Transmit_IT(&huart2, Text, strlen((char*)Text));
 		  state = 1;
+		  flag = 1;
 		  break;
 	  case 1: //Menu Select
 		  if(RxBuffer[0] == '0'){
 			  sprintf((char*)Text,"%s\r\n========LED Control========\r\n"
 				  " a : Speed Up + 1 Hz (Current Hz is %d)\r\n"
-				  " b : Speed Down -1 Hz \r\n"
+				  " s : Speed Down -1 Hz \r\n"
 				  " d : On/off \r\n x : back LED Status is %d (Note : 1 is OFF 0 is ON)\r\n"
 				  "==========================================\r\n\n"
 				  "Enter Your in Input : ",RxBuffer,timestep,LED_on);
@@ -174,8 +175,8 @@ int main(void)
 			  sprintf((char*)Text,"%s\r\n========LED Control========\r\n"
 					  "**%s is not in choice please try again**\r\n\n"
 					  "**Please Select Menu**\r\n\n"
-					  " Press 1 for LED Control \r\n\n"
-					  " Press 2 for Button Status \r\n\n"
+					  " Press 0 for LED Control \r\n\n"
+					  " Press 1 for Button Status \r\n\n"
 					  "==========================================\r\n\n"
 					  " Enter Your in Input : ",RxBuffer,RxBuffer);
 			  HAL_UART_Transmit_IT(&huart2, Text, strlen((char*)Text));
@@ -188,7 +189,7 @@ int main(void)
 		  if(RxBuffer[0] == 'a'){
 			  sprintf((char*)Text,"%s\r\n========LED Control========\r\n"
   					  " a : Speed Up + 1 Hz (Current Hz is %d)\r\n"
-  					  " b : Speed Down -1 Hz \r\n"
+  					  " s : Speed Down -1 Hz \r\n"
   					  " d : On/off \r\n x : back LED Status is %d (Note : 1 is OFF 0 is ON)\r\n"
   					  "==========================================\r\n\n"
   					  "Enter Your in Input : ",RxBuffer,timestep,LED_on);
@@ -196,10 +197,10 @@ int main(void)
 			  if(timestep < 254)timestep = timestep + 1;
 			  flag = 1;
 		  }
-		  else if(RxBuffer[0] == 'b'){
+		  else if(RxBuffer[0] == 's'){
 			  sprintf((char*)Text,"%s\r\n========LED Control========\r\n"
 					  " a : Speed Up + 1 Hz (Current Hz is %d)\r\n"
-					  " b : Speed Down -1 Hz \r\n"
+					  " s : Speed Down -1 Hz \r\n"
 					  " d : On/off \r\n x : back LED Status is %d (Note : 1 is OFF 0 is ON)\r\n"
 					  "==========================================\r\n\n"
 					  "Enter Your in Input : ",RxBuffer,timestep,LED_on);
@@ -212,16 +213,17 @@ int main(void)
 				  LED_on = 1;
 				  sprintf((char*)Text,"%s\r\n========LED Control========\r\n"
 					  " a : Speed Up + 1 Hz (Current Hz is %d)\r\n"
-					  " b : Speed Down -1 Hz \r\n"
+					  " s : Speed Down -1 Hz \r\n"
 					  " d : On/off \r\n x : back LED Status is %d (Note : 1 is OFF 0 is ON)\r\n"
 					  "==========================================\r\n\n"
 					  "Enter Your in Input : ",RxBuffer,timestep,LED_on);
+				  flag = 1;
 			  }
 			  else if(LED_on == 1){
 				  LED_on = 0;
 				  sprintf((char*)Text,"%s\r\n========LED Control========\r\n"
 					  " a : Speed Up + 1 Hz (Current Hz is %d)\r\n"
-					  " b : Speed Down -1 Hz \r\n"
+					  " s : Speed Down -1 Hz \r\n"
 					  " d : On/off \r\n x : back LED Status is %d (Note : 1 is OFF 0 is ON)\r\n"
 					  "==========================================\r\n\n"
 					  "Enter Your in Input : ",RxBuffer,timestep,LED_on);
@@ -237,7 +239,7 @@ int main(void)
 			  sprintf((char*)Text,"%s\r\n========LED Control========\r\n"
 			  "**%s is not in choice please try again**\r\n"
 			  " a : Speed Up + 1 Hz (Current Hz is %d)\r\n"
-			  " b : Speed Down -1 Hz \r\n"
+			  " s : Speed Down -1 Hz \r\n"
 			  " d : On/off \r\n x : back LED Status is %d (Note : 1 is OFF 0 is ON)\r\n"
 			  "==========================================\r\n\n"
 			  "Enter Your in Input : ",RxBuffer,RxBuffer,timestep,LED_on);
@@ -246,7 +248,7 @@ int main(void)
 		  }
 		  }
 		  break;
-	  case 3:
+	  case 3: //Button menu
 		  if(flag == 0){
 		  if(RxBuffer[0] == 'x'){
 			  	state = 0;
